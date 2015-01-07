@@ -1,0 +1,62 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>socket.io Test</title>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<style>
+		#show {
+			width: 200px;
+			height: 200px;
+			background-color: red;
+		}
+		#pointer {
+			width: 5px;
+			height: 5px;
+			position: absolute;
+			background-color: yellow;
+		}
+		#point {
+			width: 200px;
+			height: 200px;
+			background-color: blue;
+			cursor: move;
+		}
+	</style>
+</head>
+<body>
+	<h1>Simple socket.io Test!</h1>
+	<div id="show">
+		<div id="pointer"></div>
+	</div>
+	<div id="point"></div>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var socket = io.connect('http://192.168.178.43');
+
+		var $point = $("#point"),
+			$pointer = $("#pointer"),
+			$show = $("#show");
+
+		$point.mousemove(function(event) {
+			var cordX = event.clientX - $point.offset().left;
+			var cordY = event.clientY - $point.offset().top;
+
+			socket.emit('cords', { x: cordX, y: cordY });
+		});
+
+		socket.on('cordsBack', function(data){
+			console.log(data);
+			$pointer.css({
+				left: data.x,
+				top: data.y
+			});
+		});
+	  // var socket = io.connect('http://localhost');
+	  // socket.on('message', function (data) {
+	  //   alert(data);
+	  //   socket.emit('test', { my: 'data' });
+	  // });
+	</script>
+</body>
+</html>

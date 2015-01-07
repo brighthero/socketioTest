@@ -1,21 +1,25 @@
 var express = require('express');
 
 var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
 
 
 app.use(express.static(__dirname + '/public'));
 
 app.get("/", function(req, res){
-	res.send("OK");
+	res.sendFile(__dirname + '/index.html');
 });
 
 io.sockets.on('connection', function (socket) {
     socket.emit('message', { message: 'welcome to the chat' });
-    socket.on('send', function (data) {
-        io.sockets.emit('message', data);
+    socket.on('cords', function (data) {
+    	// console.log(data);
+        io.sockets.emit('cordsBack', data);
     });
 });
 
 var server_port = (process.env.PORT || 3000);
-var io = require('socket.io').listen(app.listen(server_port));
+server.listen(server_port);
 console.log("Magic happens on " + server_port);
