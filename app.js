@@ -15,7 +15,6 @@ app.get("/", function(req, res){
 io.sockets.on('connection', function (socket) {
     socket.emit('message', { message: 'welcome to the chat' });
     socket.on('cords', function (data) {
-    	// console.log(data);
         io.sockets.emit('cordsBack', data);
     });
 });

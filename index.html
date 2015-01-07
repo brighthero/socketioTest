@@ -8,8 +8,15 @@
 			width: 200px;
 			height: 200px;
 			background-color: red;
+			float: left;
 		}
 		#pointer {
+			width: 5px;
+			height: 5px;
+			position: relative;
+			background-color: yellow;
+		}
+		.line {
 			width: 5px;
 			height: 5px;
 			position: absolute;
@@ -20,6 +27,8 @@
 			height: 200px;
 			background-color: blue;
 			cursor: move;
+			float: left;
+			margin-left: 50px;
 		}
 	</style>
 </head>
@@ -52,6 +61,10 @@
 				left: data.x,
 				top: data.y
 			});
+			var cordX = data.x + $show.offset().left;
+			var cordY = data.y + $show.offset().top;
+
+			$show.append('<div class="line" style="top: '+cordY+'px; left: '+cordX+'px"></div>');
 		});
 	</script>
 </body>
