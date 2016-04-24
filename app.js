@@ -20,5 +20,6 @@ io.sockets.on('connection', function (socket) {
 });
 
 var server_port = (process.env.OPENSHIFT_NODEJS_PORT || 3000);
-server.listen(server_port);
+var server_ip = (process.env.OPENSHIFT_NODEJS_IP || undefined);
+server.listen(server_port, server_ip);
 console.log("Magic happens on " + server_port);
