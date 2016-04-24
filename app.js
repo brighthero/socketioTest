@@ -10,6 +10,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.get("/", function(req, res){
 	res.sendFile(__dirname + '/index.html');
+  console.log('New connection!', JSON.stringify(req));
 });
 
 io.sockets.on('connection', function (socket) {
