@@ -13,7 +13,7 @@ app.get("/", function(req, res){
 });
 
 io.sockets.on('connection', function (socket) {
-    socket.emit('message', { message: 'welcome to the chat' });
+    socket.emit('message', { message: 'welcome to the chat. Have fun!' });
     socket.on('cords', function (data) {
         io.sockets.emit('cordsBack', data);
     });
