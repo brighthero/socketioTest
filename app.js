@@ -4,12 +4,16 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-
+var connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+  process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+  process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+  process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+  process.env.OPENSHIFT_APP_NAME;
 
 app.use(express.static(__dirname + '/public'));
 
 app.get("/", function(req, res){
-	res.sendFile(__dirname + '/index.html');
+	res.send(connection_string);
   console.log('New connection!', req);
 });
 
